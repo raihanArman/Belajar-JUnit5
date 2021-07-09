@@ -37,12 +37,20 @@ dependencies {
 }
 
 tasks.named<Test>("test"){
-    useJUnitPlatform()
+    useJUnitPlatform{
+        excludeTags("integration-test")
+    }
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class).all{
     kotlinOptions{
         jvmTarget = "1.8"
+    }
+}
+
+tasks.register("intergration-test", Test::class){
+    useJUnitPlatform{
+        includeTags("integration-test")
     }
 }
 
